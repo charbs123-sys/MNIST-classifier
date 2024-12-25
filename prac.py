@@ -1,6 +1,8 @@
 import numpy as np
 import pandas as pd
 import struct as st
+import math
+
 def convert_to_binary(path_images, path_labels):
     filename = {'images' : path_images ,'labels' : path_labels}
     train_imagesfile = open(filename['images'],'rb')
@@ -25,3 +27,15 @@ def convert_to_binary(path_images, path_labels):
         st.unpack('>' + 'B' * nLabels, train_labelsfile.read(nLabels))
     )
     return images_array, labels_array
+
+
+def RELU(A):
+    if A > 0:
+        return A
+    else:
+        return 0
+
+
+def softmax(x):
+    e_x = np.exp(x - np.max(x))
+    return e_x/e_x.sum()
